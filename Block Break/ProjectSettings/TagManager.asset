@@ -3,16 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SpawnBlock
+  - AliveBlock
+  - AliveLine
+  - SpownLine
+  - GameOverLine
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Spawn
   - Water
   - UI
-  - 
-  - 
+  - Alive
+  - SpawnBlock
   - 
   - 
   - 
