@@ -31,7 +31,7 @@ public class BlockSpawn : MonoBehaviour
             int columnNo = Random.Range(0, 10);
 
             //列番号のブロック数が一定以上だと、その列にブロックを生成しない
-            if (BlockManager.columnBlockCount[columnNo] > 10)return;
+            if (BlockManager.columnBlockCount[columnNo] > 10) return;
             
             //列番号のブロック数を一つ加算
             BlockManager.columnBlockCount[columnNo] += 1;

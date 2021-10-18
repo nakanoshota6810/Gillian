@@ -21,6 +21,8 @@ public class BlockData : MonoBehaviour
     {
         blockColor = 0;
         blockSpawnTime = 3000;
+
+        //ブロックの色を乱数で変更する
         RandomBlockColor();
     }
 

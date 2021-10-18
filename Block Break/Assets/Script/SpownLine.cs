@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ブロックを生成してから鈍足化までの基準機能
+/// ブロックの落下速度を鈍化する基準機能
+/// これによってブロック生成時に素早く落下し、速攻でゲームオーバーラインに到達しないようにさせる。
 /// </summary>
 public class SpownLine : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class SpownLine : MonoBehaviour
     }
 
     /// <summary>
-    /// ラインの高さを更新する
+    /// スポーンラインの高さを更新する
     /// </summary>
     void PositionUpdate()
     {
