@@ -9,6 +9,7 @@ TagManager:
   - AliveLine
   - SpownLine
   - GameOverLine
+  - Effect
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - UI
   - Alive
   - SpawnBlock
-  - 
-  - 
+  - Ceilling
+  - Ball
   - 
   - 
   - 

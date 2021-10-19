@@ -126,3 +126,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockDrag: 6
+  blockEffect: {fileID: 8830959699333103781, guid: c9a733b02615ca2479ed120260b2ec6b, type: 3}

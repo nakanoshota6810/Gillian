@@ -22,7 +22,7 @@ public class BlockSetStart : MonoBehaviour
                 GameObject obj = Instantiate(block);
 
                 //生成したブロックの位置を設定
-                obj.transform.position = new Vector3(column * 10 - 45, line * 10 + 110, 0);
+                obj.transform.position = new Vector3(column * 10 - 45, line * 12 + 110, 0);
 
             }
 

@@ -34,5 +34,7 @@ public class PlayerController : MonoBehaviour
             transform.position += new Vector3(-1.0f, 0, 0) * moveSpeed * Time.deltaTime * 100;
         }
 
+        if (GameManager.statusNo == 1) Destroy(this.gameObject);
+
     }
 }

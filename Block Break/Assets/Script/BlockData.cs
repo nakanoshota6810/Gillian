@@ -10,6 +10,8 @@ public class BlockData : MonoBehaviour
     //ブロックの鈍足時の空気抵抗値
     [SerializeField] private int blockDrag;
 
+    [SerializeField] private GameObject blockEffect;
+
     //ブロックのスポーン状態の維持時間
     private int blockSpawnTime;
 
@@ -22,6 +24,8 @@ public class BlockData : MonoBehaviour
     //ブロックのRendererを格納する変数を宣言
     private new Renderer renderer;
 
+    private Vector3[] effectVector;
+
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +35,18 @@ public class BlockData : MonoBehaviour
         renderer = GetComponent<Renderer>();
 
         //ブロックの色を乱数で変更する
-        blockColor = 0;
-        RandomBlockColor();
+        blockColor = Random.Range(0, 3);
+        ChangeBlockColor();
 
         //鈍化までの値を初期化
         blockSpawnTime = 3000;
+
+        effectVector = new Vector3[4];
+
+        effectVector[0] = new Vector3(1, 0, 0);
+        effectVector[1] = new Vector3(0, 1, 0);
+        effectVector[2] = new Vector3(-1, 0, 0); 
+        effectVector[3] = new Vector3(0, -1, 0);
     }
 
     // Update is called once per frame
@@ -71,23 +82,44 @@ public class BlockData : MonoBehaviour
             rigidbody.drag = blockDrag;
         }
 
+        if (collision.gameObject.tag == "Effect")
+        {
+            Destroy(this.gameObject);
+        }
+
         //玉と接触時のみ処理に入る
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             //玉とブロックの色が同じであれば、ブロックは消滅する
             BallController ball = collision.gameObject.GetComponent<BallController>();
             if (ball.ballColor == blockColor)
                 Destroy(this.gameObject);
+            else
+            {
+                if (blockColor < 3)
+                {
+                    blockColor += ball.ballColor + 2;
+                    ChangeBlockColor();
+                    return;
+                }
+
+                if (blockColor + ball.ballColor + 1 == 6)
+                {
+                    WhiteBlockBreak(transform.position);
+                    Destroy(this.gameObject);
+                }
+            }
         }
+
+        
+       
     }
 
     /// <summary>
     /// ブロックの色を乱数で決定する
     /// </summary>
-    private void RandomBlockColor()
+    private void ChangeBlockColor()
     {
-        //ブロックの色番号を乱数で指定
-        blockColor = Random.Range(0, 3);
 
         switch (blockColor)
         {
@@ -105,6 +137,32 @@ public class BlockData : MonoBehaviour
                 //ブロックの色を青に変える
                 renderer.material.color = Color.blue;
                 break;
+
+            case 3:
+                //ブロックの色をイエローに変える
+                renderer.material.color = Color.yellow;
+                break;
+
+            case 4:
+                //ブロックの色をマゼンタに変える
+                renderer.material.color = Color.magenta;
+                break;
+
+            case 5://ブロックの色をシアンに変える
+                renderer.material.color = Color.cyan;
+                break;
+
+        }
+    }
+
+    private void WhiteBlockBreak(Vector3 vec)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject obj = Instantiate(blockEffect);
+
+            obj.GetComponent<EffectController>().SetVector(effectVector[i], transform.position);
+
         }
     }
 }

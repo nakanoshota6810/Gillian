@@ -47,8 +47,6 @@ public class BallController : MonoBehaviour
             //番号ごとに玉の色を変更する
             RandomBlockColor();
         }
-
-        Debug.Log(rigidbody.velocity);
     }
 
     // Update is called once per frame
@@ -74,11 +72,16 @@ public class BallController : MonoBehaviour
             vec.x = ballVelocityBase * perX;
             vec.y = ballVelocityBase * perY;
 
+            chackX = vec.x > 0 ? vec.x : vec.x * (-1);
+            chackY = vec.y > 0 ? vec.y : vec.y * (-1);
+
+
+
             //真横と真縦に移動しないように処理
-            if (vec.x == ballVelocityBase || vec.y == ballVelocityBase)
+            if ((chackX > chackY ? chackX - chackY : chackY - chackX) > 30 * ballSpeed)
             {
-                vec.x += 2 * ballSpeed;
-                vec.y -= 2 * ballSpeed;
+                vec.x += 4 * ballSpeed;
+                vec.y -= 4 * ballSpeed;
             }
 
             //計算後の値を、Velocityに渡す

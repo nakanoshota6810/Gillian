@@ -19,8 +19,7 @@ public class GameOverLine : MonoBehaviour
         //ブロックがすり抜けた時のみ、機能する
         if (other.gameObject.tag == "AliveBlock")
         {
-            //現状はログのみ表示
-            Debug.Log("GameOver");
+            GameManager.statusNo = 1;
         }
     }
 }
