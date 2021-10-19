@@ -10,21 +10,26 @@ public class BlockSpawn : MonoBehaviour
     //スポーンするブロックを格納する
     [SerializeField] private GameObject block;
 
+    [SerializeField] private Transform blockParent;
+
     //スポーン感覚を計るための時間を格納する変数を宣言
     private int timeCount;
 
     // Start is called before the first frame update
     void Start()
     {
-        timeCount = 3000;
+        timeCount = 300;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeCount--;
 
-        //一定ごとにブロックが生成される
+        //開始前にブロックを生成しないようにする
+        if (GameManager.statusNo != MainGameStatus.Ready) timeCount--;
+        else if (GameManager.statusNo != MainGameStatus.GameOver) return;
+
+        //一定ごとにブロックを生成
         if (timeCount <= 0)
         {
             //出現するブロックの列番号を乱数で取得
@@ -40,13 +45,13 @@ public class BlockSpawn : MonoBehaviour
             int randPositionX = columnNo * 10 - 45;
 
             //ブロックの生成
-            GameObject obj = Instantiate(block);
+            GameObject obj = Instantiate(block, blockParent);
 
             //生成したブロックの位置を設定
-            obj.transform.position = new Vector3(randPositionX, 90, 0);
+            obj.transform.position = new Vector3(randPositionX, 200, 0);
 
             //タイムカウントを再セット
-            timeCount = 1000;
+            timeCount = 300;
         }
     }
 }

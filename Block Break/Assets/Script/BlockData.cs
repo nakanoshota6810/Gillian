@@ -10,6 +10,7 @@ public class BlockData : MonoBehaviour
     //ブロックの鈍足時の空気抵抗値
     [SerializeField] private int blockDrag;
 
+    //生成する衝撃波用(連鎖用)エフェクト設定
     [SerializeField] private GameObject blockEffect;
 
     //ブロックのスポーン状態の維持時間
@@ -24,6 +25,7 @@ public class BlockData : MonoBehaviour
     //ブロックのRendererを格納する変数を宣言
     private new Renderer renderer;
 
+    //衝撃波用に上下左右のベクトル方向を格納する変数を宣言
     private Vector3[] effectVector;
 
 
@@ -41,8 +43,8 @@ public class BlockData : MonoBehaviour
         //鈍化までの値を初期化
         blockSpawnTime = 3000;
 
+        //上下左右のベクトルを作成
         effectVector = new Vector3[4];
-
         effectVector[0] = new Vector3(1, 0, 0);
         effectVector[1] = new Vector3(0, 1, 0);
         effectVector[2] = new Vector3(-1, 0, 0); 
@@ -82,6 +84,7 @@ public class BlockData : MonoBehaviour
             rigidbody.drag = blockDrag;
         }
 
+        //衝撃波に接触時、ブロックは消滅
         if (collision.gameObject.tag == "Effect")
         {
             Destroy(this.gameObject);
@@ -90,7 +93,7 @@ public class BlockData : MonoBehaviour
         //玉と接触時のみ処理に入る
         if (collision.gameObject.tag == "Player")
         {
-            //玉とブロックの色が同じであれば、ブロックは消滅する
+            //玉とブロックの色が同じであれば、ブロックは消滅
             BallController ball = collision.gameObject.GetComponent<BallController>();
             if (ball.ballColor == blockColor)
                 Destroy(this.gameObject);
@@ -105,14 +108,11 @@ public class BlockData : MonoBehaviour
 
                 if (blockColor + ball.ballColor + 1 == 6)
                 {
-                    WhiteBlockBreak(transform.position);
+                    WhiteBlockBreak();
                     Destroy(this.gameObject);
                 }
             }
         }
-
-        
-       
     }
 
     /// <summary>
@@ -120,47 +120,52 @@ public class BlockData : MonoBehaviour
     /// </summary>
     private void ChangeBlockColor()
     {
-
         switch (blockColor)
         {
             case 0:
-                //ブロックの色を赤に変える
+                //ブロックの色を赤に変更
                 renderer.material.color = Color.red;
                 break;
 
             case 1:
-                //ブロックの色を緑に変える
+                //ブロックの色を緑に変更
                 renderer.material.color = Color.green;
                 break;
 
             case 2:
-                //ブロックの色を青に変える
+                //ブロックの色を青に変更
                 renderer.material.color = Color.blue;
                 break;
 
             case 3:
-                //ブロックの色をイエローに変える
+                //ブロックの色をイエローに変更
                 renderer.material.color = Color.yellow;
                 break;
 
             case 4:
-                //ブロックの色をマゼンタに変える
+                //ブロックの色をマゼンタに変更
                 renderer.material.color = Color.magenta;
                 break;
 
-            case 5://ブロックの色をシアンに変える
+            case 5://ブロックの色をシアンに変更
                 renderer.material.color = Color.cyan;
                 break;
 
         }
     }
 
-    private void WhiteBlockBreak(Vector3 vec)
+    /// <summary>
+    /// 白いブロックが破壊されたとき、上左右一直線へ衝撃波を走らせる(連鎖処理)
+    /// </summary>
+    private void WhiteBlockBreak()
     {
+        //三方向にそれぞれ衝撃波を生成
         for (int i = 0; i < 3; i++)
         {
+            //衝撃波生成
             GameObject obj = Instantiate(blockEffect);
 
+            //走らせる向きと破壊されたブロックの位置を渡す
             obj.GetComponent<EffectController>().SetVector(effectVector[i], transform.position);
 
         }

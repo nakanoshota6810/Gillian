@@ -10,31 +10,24 @@ public class PlayerController : MonoBehaviour
     //プレイヤーの移動速度を設定
     [SerializeField] private float moveSpeed = 1.0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
         //プレイヤーのポジションを格納
         Vector3 vec = transform.position;
 
-        //キー入力で左右に移動する(-50～50の範囲)
+        //キー入力で左右に移動する(-40～40の範囲)
         //右に移動
-        if (Input.GetKey(KeyCode.D) && transform.position.x < 50)
-        {
+        if (Input.GetKey(KeyCode.D) && transform.position.x < 40)
             transform.position += new Vector3(1.0f, 0, 0) * moveSpeed * Time.deltaTime * 100;
-        }
         //左に移動
-        else if (Input.GetKey(KeyCode.A) && transform.position.x > -50)
-        {
+        else if (Input.GetKey(KeyCode.A) && transform.position.x > -40)
             transform.position += new Vector3(-1.0f, 0, 0) * moveSpeed * Time.deltaTime * 100;
-        }
 
-        if (GameManager.statusNo == 1) Destroy(this.gameObject);
+
+        //Waringラインを超えたら、プレイヤーは消滅
+        if (GameManager.statusNo == MainGameStatus.InGameWarning) 
+            this.gameObject.SetActive(false);
 
     }
 }

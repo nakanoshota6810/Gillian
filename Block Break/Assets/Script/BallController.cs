@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 玉コントロール機能
+/// </summary>
 public class BallController : MonoBehaviour
 {
     //玉の速さを設定
@@ -20,31 +23,48 @@ public class BallController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //最初に右斜め上へ移動速度分の動力を計算
-        Vector3 force = new Vector3(1.0f, 1.0f, 0) * ballSpeed * 100;
-
         //各コンポーネントを取得
         rigidbody = GetComponent<Rigidbody>();
         renderer = GetComponent<Renderer>();
 
-        //玉に力を加える
-        rigidbody.AddForce(force);
-
         //玉の色の初期設定(赤)
         ballColor = 0;
         renderer.material.color = Color.red;
-
     }
 
     private void Update()
     {
+        //玉が画面外の下まで落ちた時、ゲームオーバー
+        if(transform.position.y < -45)
+        {
+            //ゲームステータスをゲームオーバーに変更
+            GameManager.statusNo = MainGameStatus.GameOver;
+
+            //玉を消滅させる
+            this.gameObject.SetActive(false);
+        }
+
         //左クリックごとに玉の色を変える
         if (Input.GetMouseButtonDown(0))
         {
+            //最初のワンクリックでゲームを開始
+            if (GameManager.statusNo == MainGameStatus.Ready)
+            {
+                //最初に右斜め上へ移動速度分の動力を計算
+                Vector3 force = new Vector3(1.0f, 1.0f, 0) * ballSpeed * 100;
+                //玉に力を加える
+                rigidbody.AddForce(force);
+
+                //ゲームステータスをインゲームに変更
+                GameManager.statusNo = MainGameStatus.InGameNormal;
+                return;
+            }
+
+            //玉の色番号を変更(赤→緑→青→赤)
             ballColor++;
             ballColor = ballColor % 3;
 
-            //番号ごとに玉の色を変更する
+            //番号ごとに玉の色を変更
             RandomBlockColor();
         }
     }
@@ -75,13 +95,11 @@ public class BallController : MonoBehaviour
             chackX = vec.x > 0 ? vec.x : vec.x * (-1);
             chackY = vec.y > 0 ? vec.y : vec.y * (-1);
 
-
-
-            //真横と真縦に移動しないように処理
+            //なるべく、真横と真縦に移動しないように処理
             if ((chackX > chackY ? chackX - chackY : chackY - chackX) > 30 * ballSpeed)
             {
-                vec.x += 4 * ballSpeed;
-                vec.y -= 4 * ballSpeed;
+                vec.x += 5 * ballSpeed;
+                vec.y -= 5 * ballSpeed;
             }
 
             //計算後の値を、Velocityに渡す
@@ -98,17 +116,17 @@ public class BallController : MonoBehaviour
         switch (ballColor)
         {
             case 0:
-                //ブロックの色を赤に変える
+                //ブロックの色を赤に変更
                 renderer.material.color = Color.red;
                 break;
 
             case 1:
-                //ブロックの色を緑に変える
+                //ブロックの色を緑に変更
                 renderer.material.color = Color.green;
                 break;
 
             case 2:
-                //ブロックの色を青に変える
+                //ブロックの色を青に変更
                 renderer.material.color = Color.blue;
                 break;
         }
