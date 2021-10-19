@@ -10,9 +10,6 @@ public class PlayerController : MonoBehaviour
     //プレイヤーの移動速度を設定
     [SerializeField] private float moveSpeed = 1.0f;
 
-    //プレイヤーが放つ花火オブジェクトを設定
-    [SerializeField] private GameObject fireworkObject;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -37,14 +34,5 @@ public class PlayerController : MonoBehaviour
             transform.position += new Vector3(-1.0f, 0, 0) * moveSpeed * Time.deltaTime * 100;
         }
 
-        //マウスの左クリックで花火を放つ
-        if (Input.GetMouseButtonDown(0))
-        {
-            //花火の生成
-            GameObject obj = Instantiate(fireworkObject);
-
-            //花火の位置をプレイヤーの位置にする
-            obj.transform.position = transform.position;
-        }
     }
 }

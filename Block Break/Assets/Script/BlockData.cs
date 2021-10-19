@@ -10,20 +10,32 @@ public class BlockData : MonoBehaviour
     //ブロックの鈍足時の空気抵抗値
     [SerializeField] private int blockDrag;
 
+    //ブロックのスポーン状態の維持時間
+    private int blockSpawnTime;
+
     //ブロックの色
     private int blockColor;
 
-    //ブロックのスポーン状態の維持時間
-    private int blockSpawnTime;
+    //ブロックのRigidboryを格納する変数を宣言
+    private new Rigidbody rigidbody;
+
+    //ブロックのRendererを格納する変数を宣言
+    private new Renderer renderer;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        blockColor = 0;
-        blockSpawnTime = 3000;
+        //各コンポーネントを取得
+        rigidbody = GetComponent<Rigidbody>();
+        renderer = GetComponent<Renderer>();
 
         //ブロックの色を乱数で変更する
+        blockColor = 0;
         RandomBlockColor();
+
+        //鈍化までの値を初期化
+        blockSpawnTime = 3000;
     }
 
     // Update is called once per frame
@@ -37,9 +49,9 @@ public class BlockData : MonoBehaviour
             this.gameObject.layer = 6;
 
             //落下時に受ける空気抵抗の値を上昇させる
-            Rigidbody rigidbody = GetComponent<Rigidbody>();
             rigidbody.drag = blockDrag;
         }
+        //SpawnBlockタグのみ、カウントダウンを進める
         else if (this.tag == "SpawnBlock")
         {
             blockSpawnTime--;
@@ -55,9 +67,17 @@ public class BlockData : MonoBehaviour
             this.tag = "AliveBlock";
             this.gameObject.layer = 6;
 
-            //落下時に受ける空気抵抗の値を上昇させる
-            Rigidbody rigidbody = GetComponent<Rigidbody>();
+            //落下時に受ける空気抵抗の値を上昇させる           
             rigidbody.drag = blockDrag;
+        }
+
+        //玉と接触時のみ処理に入る
+        if(collision.gameObject.tag == "Player")
+        {
+            //玉とブロックの色が同じであれば、ブロックは消滅する
+            BallController ball = collision.gameObject.GetComponent<BallController>();
+            if (ball.ballColor == blockColor)
+                Destroy(this.gameObject);
         }
     }
 
@@ -67,25 +87,24 @@ public class BlockData : MonoBehaviour
     private void RandomBlockColor()
     {
         //ブロックの色番号を乱数で指定
-        blockColor = Random.Range(1, 4);
+        blockColor = Random.Range(0, 3);
 
         switch (blockColor)
         {
+            case 0:
+                //ブロックの色を赤に変える
+                renderer.material.color = Color.red;
+                break;
+
             case 1:
                 //ブロックの色を緑に変える
-                GetComponent<Renderer>().material.color = Color.green;
+                renderer.material.color = Color.green;
                 break;
 
             case 2:
-                //ブロックの色を赤に変える
-                GetComponent<Renderer>().material.color = Color.red;
-                break;
-
-            case 3:
                 //ブロックの色を青に変える
-                GetComponent<Renderer>().material.color = Color.blue;
+                renderer.material.color = Color.blue;
                 break;
         }
-
     }
 }
