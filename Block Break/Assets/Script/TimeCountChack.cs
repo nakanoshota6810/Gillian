@@ -21,10 +21,11 @@ public class TimeCountChack
     public TimeCountChack(int second)
     {
         //開始時間を受け取る
-        startTime = InternalTime.GetTime();
+        CountReset();
 
         //計測時間を設定
         chackCount = second;
+       
     }
 
     /// <summary>
@@ -33,14 +34,23 @@ public class TimeCountChack
     /// <returns></returns>
     public bool ChackTime()
     {
-        // 計測時間＋計測開始時間より、現在の時間が進んでいたら、trueを返す
+        // 計測時間＋開始時間より、現在の時間が進んでいたら、trueを返す
         if (chackCount + startTime < InternalTime.GetTime())
         {
-            //計測開始時間を再設定する
-            startTime = InternalTime.GetTime();
+            //開始時間を再設定する
+            CountReset();
             return true;
         }
 
         return false;
+    }
+
+    /// <summary>
+    /// カウントを0にする処理
+    /// </summary>
+    public void CountReset()
+    {
+        //開始時間を再設定する
+        startTime = InternalTime.GetTime();
     }
 }

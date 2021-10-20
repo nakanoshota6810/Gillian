@@ -12,25 +12,43 @@ public class GameManager:MonoBehaviour
     //ゲームステータスを格納する変数を宣言
     static public MainGameStatus statusNo { get; set; }
 
-    //ゲーム開始時に表示するUIを設定
+    //ゲームモードを格納する変数を宣言
+    static public GameMode gameMode { get; set; }
+
+    //gゲーム選択画面時に表示するUIを格納
+    [SerializeField] private GameObject gameTitleUI;
+
+    //ゲーム開始時に表示するUIを格納
     [SerializeField] private GameObject gameStartUI;
 
-    //ゲームオーバー時に表示するUIを設定
-    [SerializeField] private GameObject gameScoreUI;
+    //ゲームオーバー時に表示するUIを格納
+    [SerializeField] private GameObject gameResultScoreUI;
+
+    //ゲーム中に表示するUIを格納
+    [SerializeField] private GameObject gameInPlayScoreUI;
 
     //ゲーム開始前にブロックが落ちて来ないよう、物理的に塞ぐプレートを設定
     [SerializeField] private GameObject readyObject;
 
+    //ゲームの左右の壁を格納
+    [SerializeField] private GameObject leftWall;
+    [SerializeField] private GameObject rightWall;
+
+    //危険ラインを格納
+    [SerializeField] private GameObject flashingLine;
+
     private void Start()
     {
-        //ゲーム開始時はゲームステータスを準備状態にする
-        statusNo = MainGameStatus.Ready;
+        //ゲーム開始時はゲームステータスをゲーム選択状態にする
+        statusNo = MainGameStatus.Title;
 
         //スコアの初期化
         Score.ResetScore();
 
         //内部時間の初期化
         InternalTime.TimeReset();
+
+        gameMode = 0;
 
     }
 
@@ -46,10 +64,20 @@ public class GameManager:MonoBehaviour
             readyObject.SetActive(false);
 
             Score.UpdateChackComboAlive();
+
+            gameInPlayScoreUI.SetActive(true);
+        }
+        else if(statusNo == MainGameStatus.InGameWarning)
+        {
+            gameInPlayScoreUI.SetActive(true);
+        }
+        else
+        {
+            gameInPlayScoreUI.SetActive(false);
         }
 
         //ゲームオーバー時に、ゲームオーバーUIを表示
-        if (statusNo == MainGameStatus.GameOver) gameScoreUI.SetActive(true);
+        if (statusNo == MainGameStatus.GameOver) gameResultScoreUI.SetActive(true);
 
         //内部時間の更新
         InternalTime.TimeUpdate();
@@ -63,5 +91,41 @@ public class GameManager:MonoBehaviour
     {
         //MainGameシーンを再読み込み
         SceneManager.LoadScene("MainGame");
+    }
+
+    //ゲームモード選択後、開始準備に移行
+    public void GameStart()
+    {
+        statusNo = MainGameStatus.Ready;
+        gameTitleUI.SetActive(false);
+        gameStartUI.SetActive(true);
+        Camera.main.transform.eulerAngles = new Vector3(0, 0, 0);
+    }
+
+    /// <summary>
+    /// 通常ゲームモード
+    /// </summary>
+    public void SetNormalMode()
+    {
+        gameMode = GameMode.NormalMode;
+    }
+
+    /// <summary>
+    /// タイムカラーゲームモード
+    /// </summary>
+    public void SetTimeColorMode()
+    {
+        gameMode = GameMode.TimeColorMode;
+    }
+
+    /// <summary>
+    /// ワイドゲームモード
+    /// </summary>
+    public void SetWideMode()
+    {
+        gameMode = GameMode.WideMode;
+        leftWall.transform.position = new Vector3(-85, 0, 0);
+        rightWall.transform.position = new Vector3(85, 0, 0);
+        flashingLine.transform.localScale = new Vector3(40, 1, 0.1f);
     }
 }

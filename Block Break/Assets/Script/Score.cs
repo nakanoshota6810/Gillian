@@ -69,6 +69,8 @@ static public class Score
         BlockBreakCountAdd();
         ComboCountAdd();
         ScoreAdd();
+        if (timeCountChack != null)
+            timeCountChack.CountReset();
     }
 
     /// <summary>
@@ -76,7 +78,7 @@ static public class Score
     /// </summary>
     static public void UpdateChackComboAlive()
     {
-        if (timeCountChack == null) timeCountChack = new TimeCountChack(10);
+        if (timeCountChack == null) timeCountChack = new TimeCountChack(5);
         if (timeCountChack.ChackTime())
             comboCount = 0;
     }

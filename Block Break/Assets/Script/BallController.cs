@@ -10,6 +10,8 @@ public class BallController : MonoBehaviour
     //玉の速さを設定
     [SerializeField] private float ballSpeed = 1.0f;
 
+    [SerializeField] private PlayerController playerController;
+
     //玉の色を番号で格納する変数
     public int ballColor { get; private set; }
 
@@ -60,12 +62,15 @@ public class BallController : MonoBehaviour
                 return;
             }
 
-            //玉の色番号を変更(赤→緑→青→赤)
-            ballColor++;
-            ballColor = ballColor % 3;
+            if (GameManager.gameMode != GameMode.TimeColorMode)
+            {
+                //玉の色番号を変更(赤→緑→青→赤)
+                ballColor++;
+                ballColor = ballColor % 3;
 
-            //番号ごとに玉の色を変更
-            RandomBlockColor();
+                //番号ごとに玉の色を変更
+                RandomBlockColor();
+            }
         }
     }
 
@@ -106,6 +111,15 @@ public class BallController : MonoBehaviour
             rigidbody.velocity = vec;
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            ballColor = playerController.playerColor;
+            RandomBlockColor();
+        }
     }
 
     /// <summary>
