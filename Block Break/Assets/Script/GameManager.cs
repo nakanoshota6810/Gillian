@@ -16,7 +16,7 @@ public class GameManager:MonoBehaviour
     [SerializeField] private GameObject gameStartUI;
 
     //ゲームオーバー時に表示するUIを設定
-    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject gameScoreUI;
 
     //ゲーム開始前にブロックが落ちて来ないよう、物理的に塞ぐプレートを設定
     [SerializeField] private GameObject readyObject;
@@ -25,6 +25,13 @@ public class GameManager:MonoBehaviour
     {
         //ゲーム開始時はゲームステータスを準備状態にする
         statusNo = MainGameStatus.Ready;
+
+        //スコアの初期化
+        Score.ResetScore();
+
+        //内部時間の初期化
+        InternalTime.TimeReset();
+
     }
 
     void Update()
@@ -37,11 +44,16 @@ public class GameManager:MonoBehaviour
 
             //ブロックが落ちないように塞いでいるプレートを撤去
             readyObject.SetActive(false);
+
+            Score.UpdateChackComboAlive();
         }
 
         //ゲームオーバー時に、ゲームオーバーUIを表示
-        if (statusNo == MainGameStatus.GameOver) gameOverUI.SetActive(true);
-        
+        if (statusNo == MainGameStatus.GameOver) gameScoreUI.SetActive(true);
+
+        //内部時間の更新
+        InternalTime.TimeUpdate();
+
     }
 
     /// <summary>

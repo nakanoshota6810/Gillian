@@ -10,6 +10,7 @@ public class BlockSpawn : MonoBehaviour
     //スポーンするブロックを格納する
     [SerializeField] private GameObject block;
 
+    //スポーンしたブロックをインスペクターに直接移さないようにする親を格納する
     [SerializeField] private Transform blockParent;
 
     //スポーン感覚を計るための時間を格納する変数を宣言

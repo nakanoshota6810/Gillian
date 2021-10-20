@@ -87,6 +87,7 @@ public class BlockData : MonoBehaviour
         //衝撃波に接触時、ブロックは消滅
         if (collision.gameObject.tag == "Effect")
         {
+            Score.BlockbreakCountAndScorePointAdd();
             Destroy(this.gameObject);
         }
 
@@ -96,9 +97,13 @@ public class BlockData : MonoBehaviour
             //玉とブロックの色が同じであれば、ブロックは消滅
             BallController ball = collision.gameObject.GetComponent<BallController>();
             if (ball.ballColor == blockColor)
+            {
+                Score.BlockbreakCountAndScorePointAdd();
                 Destroy(this.gameObject);
+            }
             else
             {
+                //別の色でブロックが単色なら、混合色に変える
                 if (blockColor < 3)
                 {
                     blockColor += ball.ballColor + 2;
@@ -106,9 +111,11 @@ public class BlockData : MonoBehaviour
                     return;
                 }
 
+                //混合色に白になる色の玉がぶつかったら、衝撃波を飛ばす
                 if (blockColor + ball.ballColor + 1 == 6)
                 {
                     WhiteBlockBreak();
+                    Score.BlockbreakCountAndScorePointAdd();
                     Destroy(this.gameObject);
                 }
             }

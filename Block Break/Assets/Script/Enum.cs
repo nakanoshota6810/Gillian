@@ -8,5 +8,5 @@ public enum MainGameStatus
     Ready,          //ゲーム開始前
     InGameNormal,   //通常状態でゲーム中
     InGameWarning,  //危険状態(プレイヤー消滅状態)でゲーム中
-    GameOver        //ゲームオーバー
+    GameOver,       //ゲームオーバー
 }
