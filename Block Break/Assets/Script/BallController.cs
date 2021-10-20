@@ -13,7 +13,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private PlayerController playerController;
 
     //玉の色を番号で格納する変数
-    public int ballColor { get; private set; }
+    public ColorPallet ballColor { get; private set; }
 
     //玉のRigidboryを格納する変数を宣言
     private new Rigidbody rigidbody;
@@ -129,17 +129,17 @@ public class BallController : MonoBehaviour
     {
         switch (ballColor)
         {
-            case 0:
+            case ColorPallet.Red:
                 //ブロックの色を赤に変更
                 renderer.material.color = Color.red;
                 break;
 
-            case 1:
+            case ColorPallet.Green:
                 //ブロックの色を緑に変更
                 renderer.material.color = Color.green;
                 break;
 
-            case 2:
+            case ColorPallet.Blue:
                 //ブロックの色を青に変更
                 renderer.material.color = Color.blue;
                 break;
