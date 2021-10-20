@@ -23,6 +23,8 @@ public class BlockSetStart : MonoBehaviour
 
     private void Update()
     {
+
+        //ゲーム開始前に一度だけまとまったブロック群を生成
         if (!oneCreateFlag && GameManager.statusNo == MainGameStatus.Ready)
         {
             int columnCount = 10;

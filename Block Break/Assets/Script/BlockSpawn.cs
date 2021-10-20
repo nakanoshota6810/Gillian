@@ -27,7 +27,9 @@ public class BlockSpawn : MonoBehaviour
     {
 
         //開始前にブロックを生成しないようにする
-        if (GameManager.statusNo != MainGameStatus.GameOver || GameManager.statusNo != MainGameStatus.Title|| GameManager.statusNo != MainGameStatus.Ready) return;
+        if (GameManager.statusNo == MainGameStatus.GameOver || GameManager.statusNo == MainGameStatus.Title|| GameManager.statusNo == MainGameStatus.Ready) return;
+
+        timeCount--;
 
         //一定ごとにブロックを生成
         if (timeCount <= 0)

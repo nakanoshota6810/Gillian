@@ -126,6 +126,6 @@ public class GameManager:MonoBehaviour
         gameMode = GameMode.WideMode;
         leftWall.transform.position = new Vector3(-85, 0, 0);
         rightWall.transform.position = new Vector3(85, 0, 0);
-        flashingLine.transform.localScale = new Vector3(40, 1, 0.1f);
+        flashingLine.transform.localScale = new Vector3(18, 1, 0.1f);
     }
 }

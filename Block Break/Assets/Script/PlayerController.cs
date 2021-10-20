@@ -10,8 +10,10 @@ public class PlayerController : MonoBehaviour
     //プレイヤーの移動速度を設定
     [SerializeField] private float moveSpeed = 1.0f;
 
+    //プレイヤーの色が切り替わる時間を管理するインスタンス
     private TimeCountChack colorChangeTime;
 
+    //プレイヤーの色情報を格納
     public int playerColor { get; private set; }
 
     private new Renderer renderer;
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
             this.gameObject.SetActive(false);
 
 
+        //タイムカラーゲームモードの時に処理が行われる
         if (GameManager.gameMode == GameMode.TimeColorMode)
         {
             if (colorChangeTime == null)

@@ -42,7 +42,7 @@ public class WarningLine : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //ブロックがすり抜けた時のみ、機能する
-        if (other.gameObject.tag == "AliveBlock")
+        if (other.gameObject.tag == "AliveBlock" && GameManager.statusNo != MainGameStatus.GameOver)
             GameManager.statusNo = MainGameStatus.InGameWarning;
         
     }
