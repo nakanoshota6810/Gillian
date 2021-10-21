@@ -65,8 +65,9 @@ public class BallController : MonoBehaviour
             if (GameManager.gameMode != GameMode.TimeColorMode)
             {
                 //玉の色番号を変更(赤→緑→青→赤)
-                ballColor++;
-                ballColor = ballColor % 3;
+                int colorNo = (int)ballColor - 1;
+                colorNo++;
+                ballColor = (ColorPallet)(colorNo % 3 + 1);
 
                 //番号ごとに玉の色を変更
                 RandomBlockColor();
@@ -117,7 +118,7 @@ public class BallController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player"&&GameManager.gameMode==GameMode.TimeColorMode)
         {
-            ballColor = playerController.playerColor;
+            ballColor = (ColorPallet)(playerController.playerColor+1);
             RandomBlockColor();
         }
     }

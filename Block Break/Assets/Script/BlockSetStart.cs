@@ -8,7 +8,7 @@ using UnityEngine;
 public class BlockSetStart : MonoBehaviour
 {
     //スポーンするブロックを格納する
-    [SerializeField] private GameObject block;
+    [SerializeField] private Block block;
 
     //生成する大量のブロックをインスペクターに移さないようにする、ブロック群の親
     [SerializeField] private Transform blockParent;
@@ -41,7 +41,7 @@ public class BlockSetStart : MonoBehaviour
                 for (int line = 0; line < 5; line++)
                 {
                     //ブロックの生成
-                    GameObject obj = Instantiate(block, blockParent);
+                    GameObject obj = Instantiate(block.gameObject, blockParent);
 
                     //生成したブロックの位置を設定
                     obj.transform.position = new Vector3(column * 10 - halfValue, line * 12 + 150, 0);

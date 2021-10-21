@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BlockFunctionBase : IBlockFunction
 {
-    BlockData blockData;
+    protected BlockData blockData;
 
     public BlockFunctionBase(BlockData bd)
     {

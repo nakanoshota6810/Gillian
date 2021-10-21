@@ -8,7 +8,7 @@ using UnityEngine;
 public class BlockSpawn : MonoBehaviour
 {
     //スポーンするブロックを格納する
-    [SerializeField] private GameObject block;
+    [SerializeField] private Block block;
 
     //スポーンしたブロックをインスペクターに直接移さないようにする親を格納する
     [SerializeField] private Transform blockParent;
@@ -47,7 +47,7 @@ public class BlockSpawn : MonoBehaviour
             int randPositionX = columnNo * 10 - 45;
 
             //ブロックの生成
-            GameObject obj = Instantiate(block, blockParent);
+            GameObject obj = Instantiate(block.gameObject, blockParent);
 
             //生成したブロックの位置を設定
             obj.transform.position = new Vector3(randPositionX, 200, 0);

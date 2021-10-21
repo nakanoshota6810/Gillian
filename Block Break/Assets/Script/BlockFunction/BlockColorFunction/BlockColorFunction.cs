@@ -16,11 +16,16 @@ public class BlockColorFunction
     {
         renderer = rr;
         blockData = bd;
+    }
 
+    public void StartChangeColor()
+    {
         //生成時にブロックの色をランダムにする
         ChangeBlockColor(Random.Range(0, 3));
 
         nowColor = blockData.blockColor;
+
+        ChangeBlockColorFunction();
     }
 
     public void ChangeBlockColor(ColorPallet color)
@@ -101,5 +106,8 @@ public class BlockColorFunction
                 blockColorFanction = null;
                 break;
         }
+
+        if (blockColorFanction != null) blockColorFanction.ChangeBlockColor();
+         nowColor = blockData.blockColor;
     }
 }

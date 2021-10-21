@@ -2,29 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockFunctionSpown : IBlockFunction
+public class BlockFunctionSpown : BlockFunctionBase
 {
-    private Rigidbody   rigidbody;
- 
-    private BlockData   blockData;
+    //Rigidbobyを格納する変数を宣言
+    private Rigidbody rigidbody;
 
     //ブロックのスポーン状態の維持時間
     private int blockSpawnTime;
 
 
-    public BlockFunctionSpown(Rigidbody rb, BlockData bd) 
+    public BlockFunctionSpown(Rigidbody rb, BlockData bd) :base(bd)
     {
         rigidbody = rb;
-        blockData = bd;
     }
 
-    public void ItStart()
+    public override void ItStart()
     {
         //鈍化までの値を初期化
         blockSpawnTime = 3000;
     }
 
-    public void ItUpdate()
+    public override void ItUpdate()
     {
         blockSpawnTime--;
         if (blockSpawnTime <= 0)
@@ -37,7 +35,7 @@ public class BlockFunctionSpown : IBlockFunction
         }
     }
 
-    public void ItCollisionEnter(Collision collision)
+    public override void ItCollisionEnter(Collision collision)
     {
         //ブロックがSpawnLineを超えたら、落下速度を鈍足にする
         if (collision.gameObject.tag == "SpownLine")

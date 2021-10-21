@@ -2,55 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockController : MonoBehaviour
+public class BlockController
 {
     //ブロックのRigidboryを格納する変数を宣言
-    private new Rigidbody rigidbody;
+    private Rigidbody rigidbody;
 
     //ブロックのRendererを格納する変数を宣言
-    private new Renderer renderer;
+    private Renderer renderer;
 
     //ブロックのデータを格納する変数を宣言
     private BlockData blockData;
 
     //ブロックの挙動インターフェースを格納する変数を宣言
-    IBlockFunction blockFunction;
-
-    
-    BlockColorFunction blockColorFanction;
-
+    BlockFunction blockFunction;
 
     public BlockController(Rigidbody rb, Renderer rr, BlockData bd)
     {
-        rigidbody = rb;
-        renderer = rr;
-        blockData = bd;
+        rigidbody   = rb;
+        renderer    = rr;
+        blockData   = bd;
 
-        blockData.blockStatus = BlockStatus.Fall;
-
-        ChangeBlockFunction();
-
-        blockColorFanction = new BlockColorFunction(renderer, blockData);
-
-    }
-
-    private void ChangeBlockFunction()
-    {
-        blockFunction = null;
-
-        switch (blockData.blockStatus)
-        {
-            case BlockStatus.Fall:
-                blockFunction = new BlockFunctionSpown(rigidbody, blockData);
-                ItStart();
-                break;
-
-            case BlockStatus.Alive:
-                blockFunction = new BlockFunctionAlive(blockData, blockColorFanction);
-                this.tag = "AliveBlock";
-                this.gameObject.layer = 6;
-                break;
-        }
+        blockFunction = new BlockFunction(rigidbody, renderer, blockData);
     }
 
     public void ItStart()
