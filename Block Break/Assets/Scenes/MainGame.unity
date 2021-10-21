@@ -3150,11 +3150,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2034822144}
-  - component: {fileID: 2034822146}
   - component: {fileID: 2034822145}
   - component: {fileID: 2034822143}
   m_Layer: 0
-  m_Name: BlockManager
+  m_Name: StageManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3169,11 +3168,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2034822142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4b2cc603e2ca81448c621e97dc57714, type: 3}
+  m_Script: {fileID: 11500000, guid: f15c5269da98d4847803da0ff6747260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  block: {fileID: 6186495140294158050, guid: 94ef62f8592cd1546b5e45d14c6c236a, type: 3}
-  blockParent: {fileID: 866079466}
 --- !u!4 &2034822144
 Transform:
   m_ObjectHideFlags: 0
@@ -3199,23 +3196,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2034822142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 531e350948e936b42afc371d46fc2f38, type: 3}
+  m_Script: {fileID: 11500000, guid: afc04c34d87cde64eb1ba59a6e782ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  block: {fileID: 6186495140294158050, guid: 94ef62f8592cd1546b5e45d14c6c236a, type: 3}
+  block: {fileID: 814121754589377654, guid: 94ef62f8592cd1546b5e45d14c6c236a, type: 3}
   blockParent: {fileID: 866079466}
---- !u!114 &2034822146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034822142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f15c5269da98d4847803da0ff6747260, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2078631136
 GameObject:
   m_ObjectHideFlags: 0

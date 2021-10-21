@@ -7,18 +7,17 @@ public class Block : MonoBehaviour
     private BlockData       blockData;
     private BlockController blockController;
 
-
-
     [SerializeField] private GameObject effectObject;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         blockData = new BlockData();
 
+        gameObject.SetActive(false);
+
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         Renderer renderer = GetComponent<Renderer>();
-        blockController = new BlockController(rigidbody, renderer,blockData);
+        blockController = new BlockController(rigidbody, renderer, blockData);
         blockController.ItStart();
     }
 
@@ -30,7 +29,7 @@ public class Block : MonoBehaviour
         if (blockData.blockStatus == BlockStatus.SuperBreak)
             BlockSuperBreak();
 
-        if (!blockData.blockActive) Destroy(this.gameObject);
+        if (!blockData.blockActive) this.gameObject.SetActive(false);
 
         this.tag = blockData.blockTag;
         this.gameObject.layer = blockData.blockLayerNo;
@@ -41,6 +40,17 @@ public class Block : MonoBehaviour
         blockController.ItCollisionEnter(collision);
     }
 
+    public void BlockInstantiate(Vector3 vec)
+    {
+        blockData.blockActive = true;
+        this.gameObject.SetActive(true);
+        this.gameObject.transform.position = vec;
+    }
+
+    public bool GetBlockActive()
+    {
+        return blockData.blockActive;
+    }
 
     /// <summary>
     /// 混合色ブロックが破壊されたとき、上左右一直線へ衝撃波を走らせる(連鎖処理)

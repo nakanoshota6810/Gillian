@@ -53,4 +53,19 @@ public class TimeCountChack
         //開始時間を再設定する
         startTime = InternalTime.GetTime();
     }
+
+
+    /// <summary>
+    /// コンストラクタ
+    /// インスタンス生成時に、計測する値を渡す
+    /// </summary>
+    /// <param 計測する秒数="second"></param>
+    public void SetNewCount(int second)
+    {
+        //計測時間を設定
+        chackCount = second;
+
+        //開始時間を再設定する
+        startTime = InternalTime.GetTime();
+    }
 }

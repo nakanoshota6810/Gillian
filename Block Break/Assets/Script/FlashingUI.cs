@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class FlashingUI : MonoBehaviour
 {
     //点滅させるテキストを設定
-    [SerializeField] private Text gameStartConditionText;
+    [SerializeField] private Text gameStartConditionText = null;
 
     //点滅の基準となるタイムカウントを格納する変数を宣言
     private int flashingTime;
