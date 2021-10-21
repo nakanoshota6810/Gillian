@@ -38,7 +38,9 @@ public enum BlockStatus
 {
     None=0,
     Fall,
-    Alive
+    Alive,
+    Break,      //’Êí‚ÌÁ–Å‘Ò‚¿ó‘Ô
+    SuperBreak //ÕŒ‚”g¬‚İ‚ÌÁ–Å‘Ò‚¿ó‘Ô
 }
 
 
