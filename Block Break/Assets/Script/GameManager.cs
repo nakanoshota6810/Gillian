@@ -9,23 +9,11 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager:MonoBehaviour
 {
-    //ゲームステータスを格納する変数を宣言
-    static public MainGameStatus statusNo { get; set; }
+    //ゲームステータスを静的に格納する変数を宣言
+    static public GameStatus gameStatus { get; set; }
 
-    //ゲームモードを格納する変数を宣言
+    //ゲームモードを静的に格納する変数を宣言
     static public GameMode gameMode { get; set; }
-
-    //gゲーム選択画面時に表示するUIを格納
-    [SerializeField] private GameObject gameTitleUI;
-
-    //ゲーム開始時に表示するUIを格納
-    [SerializeField] private GameObject gameStartUI;
-
-    //ゲームオーバー時に表示するUIを格納
-    [SerializeField] private GameObject gameResultScoreUI;
-
-    //ゲーム中に表示するUIを格納
-    [SerializeField] private GameObject gameInPlayScoreUI;
 
     //ゲーム開始前にブロックが落ちて来ないよう、物理的に塞ぐプレートを設定
     [SerializeField] private GameObject readyObject;
@@ -40,7 +28,7 @@ public class GameManager:MonoBehaviour
     private void Start()
     {
         //ゲーム開始時はゲームステータスをゲーム選択状態にする
-        statusNo = MainGameStatus.Title;
+        gameStatus = GameStatus.Title;
 
         //スコアの初期化
         Score.ResetScore();
@@ -55,33 +43,16 @@ public class GameManager:MonoBehaviour
     void Update()
     {
         //ゲーム開始時のUIなどを削除
-        if (statusNo == MainGameStatus.InGameNormal)
+        if (gameStatus == GameStatus.InGameNormal)
         {
-            //UIの削除
-            gameStartUI.SetActive(false);
-
             //ブロックが落ちないように塞いでいるプレートを撤去
             readyObject.SetActive(false);
 
             Score.UpdateChackComboAlive();
-
-            gameInPlayScoreUI.SetActive(true);
         }
-        else if(statusNo == MainGameStatus.InGameWarning)
-        {
-            gameInPlayScoreUI.SetActive(true);
-        }
-        else
-        {
-            gameInPlayScoreUI.SetActive(false);
-        }
-
-        //ゲームオーバー時に、ゲームオーバーUIを表示
-        if (statusNo == MainGameStatus.GameOver) gameResultScoreUI.SetActive(true);
 
         //内部時間の更新
         InternalTime.TimeUpdate();
-
     }
 
     /// <summary>
@@ -96,9 +67,7 @@ public class GameManager:MonoBehaviour
     //ゲームモード選択後、開始準備に移行
     public void GameStart()
     {
-        statusNo = MainGameStatus.Ready;
-        gameTitleUI.SetActive(false);
-        gameStartUI.SetActive(true);
+        gameStatus = GameStatus.Ready;
         Camera.main.transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
