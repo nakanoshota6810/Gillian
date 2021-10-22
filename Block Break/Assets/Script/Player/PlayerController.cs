@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         renderer = GetComponent<Renderer>();
-        playerColor = ColorPallet.Red;
     }
 
     // Update is called once per frame
@@ -53,6 +52,7 @@ public class PlayerController : MonoBehaviour
             if (colorChangeTime == null)
             {
                 colorChangeTime = new Timer(6);
+                playerColor = ColorPallet.Red;
                 ChacgePlayerColor();
             }
 
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
             {
                 int color = (int)playerColor - 1;
                 color++;
-                playerColor = (ColorPallet)(color % 3 - 1);
+                playerColor = (ColorPallet)(color % 3) + 1;
                 ChacgePlayerColor();
             }
         }

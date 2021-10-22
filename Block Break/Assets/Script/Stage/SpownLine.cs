@@ -24,8 +24,10 @@ public class SpownLine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.gameStatus != GameStatus.InGameNormal) return;
+
         //徐々に下限値までラインを下げる
-        if (lineStratPositionY > lineUnderPositionY) lineStratPositionY -= 0.01f;
+        if (lineStratPositionY > lineUnderPositionY) lineStratPositionY -= 0.001f;
 
         //ラインの高さを更新
         PositionUpdate();

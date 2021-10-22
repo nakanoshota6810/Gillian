@@ -29,20 +29,21 @@ public class StageBlockManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //最初にブロックリストを初期化する
-        foreach (GameObject block in blockList)
-        {
-            Destroy(block);
-        }
+        ////最初にブロックリストを初期化する
+        //foreach (GameObject block in blockList)
+        //{
+        //    Destroy(block);
+        //}
         blockList.Clear();
+        columnBlockCount.Clear();
 
         //静的変数に器を移す
         staticBlock = block;
         staticBlockParent = blockParent;
 
-        //最初に一つだけブロックを生成し、リストに追加する
-        GameObject obj = Instantiate(staticBlock, staticBlockParent);
-        blockList.Add(obj);
+        ////最初に一つだけブロックを生成し、リストに追加する
+        //GameObject obj = Instantiate(staticBlock, staticBlockParent);
+        //blockList.Add(obj);
     }
 
     /// <summary>

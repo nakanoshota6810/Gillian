@@ -47,7 +47,7 @@ public enum ColorPallet
 public enum BlockStatus
 {
     None = 0,   
-    Fall,       //出現直後の落下速度が早い状態
+    Spawn,       //出現直後の落下速度が早い状態
     Alive,      //玉と接触できる生存状態
     Break,      //通常の消滅待ち状態
     SuperBreak  //衝撃波混みの消滅待ち状態

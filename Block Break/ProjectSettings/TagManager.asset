@@ -7,18 +7,18 @@ TagManager:
   - SpawnBlock
   - AliveBlock
   - AliveLine
-  - SpownLine
   - GameOverLine
   - Effect
+  - SpawnLine
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Spawn
+  - 
   - Water
   - UI
   - Alive
-  - SpawnBlock
+  - Spawn
   - Ceilling
   - Ball
   - 

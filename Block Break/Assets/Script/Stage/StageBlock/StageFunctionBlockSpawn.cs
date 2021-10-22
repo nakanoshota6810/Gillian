@@ -50,7 +50,7 @@ public class StageFunctionBlockSpawn : StageFunctionBase
             int randPositionX = columnNo * 10 - halfValue;
 
             //ブロックを計算した位置に出現させる
-            StageBlockManager.GetSleepBlock().BlockInstantiate(new Vector3(randPositionX, 200, 0));
+            StageBlockManager.GetSleepBlock().BlockInstantiate(new Vector3(randPositionX, 120, 0));
         }
     }
 }

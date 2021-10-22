@@ -4,53 +4,72 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    //ブロックのデータクラスのインスタンスを格納する変数を宣言
     private BlockData       blockData;
+
+    //ブロックのコントロールクラスのインスタンスを格納する変数を宣言
     private BlockController blockController;
 
+    //ブロックのスーパーブレイク時に流す衝撃波演出のオブジェクトを格納
     [SerializeField] private GameObject effectObject;
 
     private void Awake()
     {
+        //ブロックデータクラスをインスタンス化
         blockData = new BlockData();
 
-        gameObject.SetActive(false);
-
+        //コンポーネントを読み込む
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         Renderer renderer = GetComponent<Renderer>();
+
+        //ブロックコントロールクラスのインスタンス化
         blockController = new BlockController(rigidbody, renderer, blockData);
-        blockController.ItStart();
+
+        //ブロックのアクティブ化
+        blockController.BlockInstantiate(); ;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //ブロックの挙動を更新
         blockController.ItUpdate();
 
+        //ブロックのステータスが「SuperBreak」なら、処理を行う
         if (blockData.blockStatus == BlockStatus.SuperBreak)
             BlockSuperBreak();
 
+        //ブロックデータがfalseなら、ブロック自体を非アクティブ状態にする
         if (!blockData.blockActive)
             this.gameObject.SetActive(false);
         
-
+        //各タグとレイヤーを更新
         this.tag = blockData.blockTag;
         this.gameObject.layer = blockData.blockLayerNo;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        //当たり判定毎に処理を行う
         blockController.ItCollisionEnter(collision);
     }
 
-    public void BlockInstantiate(Vector3 vec)
+    /// <summary>
+    /// ブロックがアクティブ化したとき処理を行う
+    /// </summary>
+    /// <param アクティブ化させる位置情報="positionVector"></param>
+    public void BlockInstantiate(Vector3 positionVector)
     {
-        blockData.Reset();
         blockData.blockActive = true;
         this.gameObject.SetActive(true);
-        this.gameObject.transform.position = vec;
-        blockController.ItStart();
+        this.gameObject.transform.position = positionVector;
+        blockController.BlockInstantiate();
     }
 
+    /// <summary>
+    /// ブロックのアクティブ状態を返す
+    /// </summary>
+    /// <returns></returns>
     public bool GetBlockActive()
     {
         return blockData.blockActive;
@@ -79,11 +98,12 @@ public class Block : MonoBehaviour
             GameObject obj = Instantiate(effectObject);
 
             //走らせる向きと破壊されたブロックの位置を渡す
-            obj.GetComponent<EffectController>().SetVector(effectVector[i], transform.position);
+            obj.GetComponent<EffectController>().SetVectors(effectVector[i], transform.position);
 
         }
 
+        //ブロックデータのアクティブ情報をfalseにする
+        blockData.blockActive = false; 
         blockData.blockStatus = BlockStatus.None;
-        blockData.blockActive = false;
     }
 }

@@ -16,14 +16,14 @@ public class GameManager:MonoBehaviour
     static public GameMode gameMode { get; set; }
 
     //ゲーム開始前にブロックが落ちて来ないよう、物理的に塞ぐプレートを設定
-    [SerializeField] private GameObject readyObject;
+    [SerializeField] private GameObject readyObject=null;
 
     //ゲームの左右の壁を格納
-    [SerializeField] private GameObject leftWall;
-    [SerializeField] private GameObject rightWall;
+    [SerializeField] private GameObject leftWall = null;
+    [SerializeField] private GameObject rightWall = null;
 
     //危険ラインを格納
-    [SerializeField] private GameObject flashingLine;
+    [SerializeField] private GameObject flashingLine = null;
 
     private void Start()
     {

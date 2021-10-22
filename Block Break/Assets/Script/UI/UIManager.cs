@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ゲームステータスごとのUIの管理
 /// </summary>
-public class UIManager
+public class UIManager:MonoBehaviour
 {
     //ゲーム選択画面時に表示するUIを格納
     [SerializeField] private GameObject gameTitleUI;

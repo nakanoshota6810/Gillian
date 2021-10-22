@@ -61,12 +61,13 @@ public class BlockColorFunction
     /// </summary>
     public void ItUpdate()
     {
+        //色の変更が行われたら、機能を変更する
         if (nowColor != blockData.blockColor)
             ChangeBlockColorFunction();
     }
 
     /// <summary>
-    /// ブロックの色ごとに、BlockColorFunctionBaseをオーバーライドする
+    /// ブロックの色ごとに、BlockColorFunctionBaseへオーバーライドする
     /// </summary>
     private void ChangeBlockColorFunction()
     {

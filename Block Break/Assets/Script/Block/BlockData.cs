@@ -18,18 +18,16 @@ public class BlockData
     //ブロックのレイヤー
     public int blockLayerNo { get; set; }
 
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
     public BlockData()
     {
-        Reset();
-    }
-
-    public void Reset()
-    {
-        blockColor  = ColorPallet.Nome;
-        blockStatus = BlockStatus.Fall;
+        //初期化
+        blockColor = ColorPallet.Nome;
+        blockStatus = BlockStatus.Spawn;
         blockActive = false;
-        blockTag    = "SpawnBlock";
+        blockTag = "SpawnBlock";
         blockLayerNo = 7;
     }
-
 }

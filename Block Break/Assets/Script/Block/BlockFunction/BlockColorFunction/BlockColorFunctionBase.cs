@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ブロックの色ごとの機能の親クラス
+/// ブロックの色毎の機能の親クラス
 /// </summary>
 public abstract class BlockColorFunctionBase : IBlockColorFunction
 {

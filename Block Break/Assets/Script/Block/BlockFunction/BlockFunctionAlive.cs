@@ -2,30 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// BlockFunctionBaseへオーバーライドを行う
+/// ブロックのステータスが「Alive」時の処理を行う
+/// </summary>
 public class BlockFunctionAlive : BlockFunctionBase
 {
+    //使用する色毎の機能インスタンスを宣言
     private BlockColorFunction blockColorFunction;
 
-
-    //衝撃波用に上下左右のベクトル方向を格納する変数を宣言
-    private Vector3[] effectVector;
-
-
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param 親クラスへ渡す自身のBlockDataのインスタンス="bd"></param>
+    /// <param 自身のBlockColorFunctionのインスタンス="bcf"></param>
     public BlockFunctionAlive(BlockData bd, BlockColorFunction bcf) : base(bd)
     {
         blockColorFunction = bcf;
     }
 
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
     public override void ItStart()
     {
         blockData.blockTag = "AliveBlock";
         blockData.blockLayerNo = 6;
     }
 
-    public override void ItUpdate()
-    {
-    }
+    /// <summary>
+    /// 更新処理(未使用)
+    /// </summary>
+    public override void ItUpdate(){}
 
+    /// <summary>
+    /// 当たり判定処理
+    /// </summary>
+    /// <param 当たりの対象="collision"></param>
     public override void ItCollisionEnter(Collision collision)
     {
         //衝撃波に接触時、ブロックを消滅させる
@@ -39,7 +52,7 @@ public class BlockFunctionAlive : BlockFunctionBase
         if (collision.gameObject.tag == "Player")
         {
             //色情報ごとにブロックのステータスを変更する
-            blockColorFunction.UpdateBlockStatusFromColor(collision);
+            blockColorFunction.HitUpdate(collision);
         }
     }
 }
