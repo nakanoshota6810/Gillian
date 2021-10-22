@@ -10,6 +10,7 @@ TagManager:
   - GameOverLine
   - Effect
   - SpawnLine
+  - Ball
   layers:
   - Default
   - TransparentFX

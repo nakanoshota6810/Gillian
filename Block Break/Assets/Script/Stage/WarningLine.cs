@@ -16,6 +16,8 @@ public class WarningLine : MonoBehaviour
     //点滅の基準となるタイムカウントを格納する変数を宣言
     private int flashingTime;
 
+    private bool warningFlag;
+
     private void Start()
     {
         //Renderer型のコンポーネントを取得
@@ -23,12 +25,18 @@ public class WarningLine : MonoBehaviour
 
         //タイムカウントの初期化
         flashingTime = 500;
+
+        //点滅処理のフラグの初期化
+        warningFlag = false;
     }
 
     void Update()
     {
         //ゲームステータスが危険状態のみ、タイムカウントを動かす
-        if (GameManager.gameStatus == GameStatus.InGameWarning) flashingTime--;
+        if (GameManager.gameStatus == GameStatus.InGameWarning) warningFlag = true;
+
+        //フラグが真のとき、点滅用のタイムカウントを進める
+        if (warningFlag) flashingTime--;
 
         //タイムカウントごとに、テキストを点滅させる
         if (flashingTime <= 0) flashingTime = 500;

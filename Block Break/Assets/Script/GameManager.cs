@@ -25,6 +25,9 @@ public class GameManager:MonoBehaviour
     //危険ラインを格納
     [SerializeField] private GameObject flashingLine = null;
 
+    //マウスカーソルの挙動のインスタンスを宣言
+    private CursorController cursorController;
+
     private void Start()
     {
         //ゲーム開始時はゲームステータスをゲーム選択状態にする
@@ -36,7 +39,11 @@ public class GameManager:MonoBehaviour
         //内部時間の初期化
         InternalTime.TimeReset();
 
+        //ゲームモードの初期化
         gameMode = 0;
+
+        //マウスカーソルクラスのインスタンスを取得
+        cursorController = new CursorController();
 
     }
 
@@ -53,6 +60,15 @@ public class GameManager:MonoBehaviour
 
         //内部時間の更新
         InternalTime.TimeUpdate();
+        cursorController.ItUpdate();
+
+        //カーソル表示の切り替え
+        if (gameStatus == GameStatus.Title|| gameStatus == GameStatus.GameOver) 
+            cursorController.ChangeCursorVisible(true);
+        else 
+            cursorController.ChangeCursorVisible(false);
+
+
     }
 
     /// <summary>

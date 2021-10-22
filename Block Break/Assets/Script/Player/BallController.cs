@@ -62,7 +62,7 @@ public class BallController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //ゲームモードがタイムカラーモードの時のみ、プレイヤーに接触することで、玉の色がプレイヤーの色に変化する
-        if (collision.gameObject.tag == "Player" && GameManager.gameMode == GameMode.TimeColorMode)
+        if (collision.gameObject.tag == "Ball" && GameManager.gameMode == GameMode.TimeColorMode)
         {
             ballColor = playerController.playerColor;
 

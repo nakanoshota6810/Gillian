@@ -13,6 +13,8 @@ public class EffectController : MonoBehaviour
     //ˆÚ“®Œü‚«‚ğŠi”[‚·‚é
     private Vector3 moveVector;
 
+    private Vector3 startPosition;
+
     // Update is called once per frame
     void Update()
     {
@@ -20,7 +22,7 @@ public class EffectController : MonoBehaviour
         transform.position += moveVector * moveSpeed;
 
         //ˆê’è‚Ü‚ÅˆÚ“®‚·‚é‚±‚Æ‚ÅAÕŒ‚”g‚ğÁ–Å
-        if (transform.position.x < -60 || transform.position.x > 60 || transform.position.y > 80)
+        if (transform.position.x < -50 + startPosition.x || transform.position.x  > 50 + startPosition.x || transform.position.y > 80)
             Destroy(this.gameObject);
     }
 
@@ -33,6 +35,7 @@ public class EffectController : MonoBehaviour
     {
         moveVector = moveVec;
         transform.position = alivepPosition;
+        startPosition = transform.position;
     }
 }
 

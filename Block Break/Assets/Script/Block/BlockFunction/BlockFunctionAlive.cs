@@ -52,7 +52,8 @@ public class BlockFunctionAlive : BlockFunctionBase
         if (collision.gameObject.tag == "Player")
         {
             //色情報ごとにブロックのステータスを変更する
-            blockColorFunction.HitUpdate(collision);
+            if (blockColorFunction != null)
+                blockColorFunction.HitUpdate(collision);
         }
     }
 }
